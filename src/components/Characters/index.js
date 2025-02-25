@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Character from "./Character";
+import CharactersSkeleton from "./Skeleton";
 import "./Characters.scss";
 
 const Characters = ({ characters }) => {
@@ -19,4 +20,5 @@ const Characters = ({ characters }) => {
   );
 };
 
+export { CharactersSkeleton };
 export default Characters;

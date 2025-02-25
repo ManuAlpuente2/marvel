@@ -62,3 +62,12 @@
   font-weight: 400;
   flex: 1;
 }
+
+.marvel-characters-skeleton {
+  .marvel-character-bottom {
+    border-color: transparent;
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

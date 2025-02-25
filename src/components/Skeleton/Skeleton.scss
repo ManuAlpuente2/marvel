@@ -1,0 +1,23 @@
+@keyframes skeleton {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.marvel-skeleton {
+  background-color: #ccc;
+  animation: skeleton 2s ease-in-out 0.5s infinite;
+  width: 100%;
+  line-height: 1.1;
+  pointer-events: none;
+  border-radius: 5px;
+  &:before {
+    content: "\00a0";
+  }
+}

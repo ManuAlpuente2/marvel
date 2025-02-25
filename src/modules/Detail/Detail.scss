@@ -2,6 +2,8 @@
 
 .marvel-detail {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .marvel-detail-header {
   background-color: var(--color-secondary);
@@ -46,6 +48,18 @@
   line-height: 1.1875;
 }
 
+.marvel-detail-no-content {
+  display: flex;
+  flex: 1 1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.marvel-detail-no-content {
+  font-size: var(--font-size-l);
+}
+
 @media screen and (min-width: rem(580)) {
   .marvel-detail-header-container {
     display: flex;
@@ -59,65 +73,5 @@
   }
   .marvel-detail-title {
     font-size: var(--font-size-xxl);
-  }
-}
-
-.marvel-detail-content {
-  margin: rem(50) 0;
-}
-.marvel-detail-items-container {
-  overflow-x: scroll;
-  &::-webkit-scrollbar {
-    height: rem(4);
-    width: rem(4);
-    background: var(--color-gray);
-  }
-  &::-webkit-scrollbar-thumb:horizontal {
-    background: var(--color-accent);
-  }
-}
-.marvel-detail-items-title {
-  font-size: var(--font-size-l);
-  text-transform: uppercase;
-}
-.marvel-detail-items {
-  display: flex;
-  gap: var(--padding);
-  margin-bottom: rem(24);
-}
-.marvel-detail-item-link {
-  text-decoration: none;
-  color: var(--color-secondary);
-}
-.marvel-detail-item {
-  flex: 0 0 rem(180);
-  overflow: hidden;
-}
-.marvel-detail-item-img_container {
-  aspect-ratio: 1 / 1.5;
-  overflow: hidden;
-}
-.marvel-detail-item-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.marvel-detail-item-title {
-  font-weight: 500;
-  margin: rem(8) 0;
-  display: -webkit-box;
-  width: 100%;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.marvel-detail-item-year {
-  font-size: var(--font-size-s);
-}
-
-@media screen and (min-width: rem(580)) {
-  .marvel-detail-items-title {
-    font-size: var(--font-size-xl);
   }
 }

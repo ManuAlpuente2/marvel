@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import CharactersContext from "../../context/Characters";
 import { getMarvelCharacters } from "./../../server";
-import Characters from "../../components/Characters";
+import Characters, { CharactersSkeleton } from "../../components/Characters";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <>
       {loading ? (
-        <span className="marvel-loading">Loading...</span>
+        <CharactersSkeleton />
       ) : (
         <>
           {characters?.data?.length ? (
