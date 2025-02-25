@@ -6,7 +6,7 @@ const Character = ({ character }) => {
       <div className="marvel-character-img_container">
         <img
           className="marvel-character-img"
-          src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
+          src={`${character?.thumbnail?.path}/portrait_uncanny.${character?.thumbnail?.extension}`}
           alt={character.name}
           title={`Go to ${character.name} detail`}
         />

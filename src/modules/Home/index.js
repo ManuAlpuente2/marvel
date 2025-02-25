@@ -8,25 +8,27 @@ const Home = () => {
   const { characters, setCharacters } = useContext(CharactersContext);
 
   useEffect(() => {
-    if (characters?.length) return;
+    if (characters?.data?.length) return;
     setLoading(true);
     getMarvelCharacters().then((data) => {
       setLoading(false);
-      setCharacters(data?.results);
+      setCharacters((c) => ({ ...c, data: data?.results }));
       console.log(data);
     });
   }, []);
 
   return (
-    <div className="marvel-home">
+    <>
       {loading ? (
-        "Loading..."
+        <span className="marvel-loading">Loading...</span>
       ) : (
         <>
-          {characters?.length ? <Characters characters={characters} /> : null}
+          {characters?.data?.length ? (
+            <Characters characters={characters.data} />
+          ) : null}
         </>
       )}
-    </div>
+    </>
   );
 };
 

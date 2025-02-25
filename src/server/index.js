@@ -9,3 +9,12 @@ export const getMarvelCharacters = () => {
     .then((response) => response.json())
     .then((data) => data.data);
 };
+
+export const getMarvelCollection = (collectionURI) => {
+  const timeStamp = new Date().getTime();
+  const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
+  const url = `${collectionURI}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=20`;
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => data.data);
+};

@@ -5,6 +5,7 @@ import CharactersContext from "./context/Characters";
 import Layout from "./modules/Layout";
 import Favorites from "./modules/Favorites";
 import Home from "./modules/Home";
+import Detail from "./modules/Detail";
 import "./App.scss";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="favorites" element={<Favorites />} />
+            <Route path="character/:id" element={<Detail />} />
           </Route>
         </Routes>
       </BrowserRouter>

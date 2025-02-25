@@ -4,16 +4,22 @@
   grid-template-columns: repeat(auto-fit, minmax(186px, max-content));
   display: grid;
   padding: var(--padding-s);
+  width: 100%;
 }
 
 .marvel-character-item {
   padding: var(--padding-s);
   display: flex;
+  text-align: start;
 }
+.marvel-character-link,
 .marvel-character {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+.marvel-character-link {
+  text-decoration: none;
 }
 .marvel-character-img_container {
   position: relative;

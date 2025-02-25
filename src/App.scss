@@ -1,5 +1,6 @@
 @import "./assets/vars.scss";
 @import "./assets/functions.scss";
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* Common */
 .sr-only {
@@ -17,11 +18,18 @@ ul {
   list-style: none;
   margin: 0;
 }
-
 .marvel-app {
+  font-family: var(--font-family);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
   * {
     box-sizing: border-box;
   }
+}
+.marvel-container {
+  max-width: rem(960);
+  margin: 0 auto;
 }
 
 .marvel-header {
@@ -45,5 +53,21 @@ ul {
 }
 
 .marvel-content {
-  margin-top: rem(85);
+  padding-top: rem(85);
+  min-height: 100dvh;
+  display: flex;
+  width: 100%;
+}
+
+.marvel-loading {
+  display: flex;
+  align-self: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.marvel-page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
