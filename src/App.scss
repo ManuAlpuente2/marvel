@@ -1,1 +1,49 @@
+@import "./assets/vars.scss";
+@import "./assets/functions.scss";
 
+/* Common */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.marvel-app {
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.marvel-header {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  padding: var(--padding);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: var(--padding);
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.marvel-logo {
+  display: block;
+  width: rem(130);
+}
+
+.marvel-content {
+  margin-top: rem(85);
+}

@@ -1,0 +1,58 @@
+@import "./../../assets/functions.scss";
+
+.marvel-characters {
+  grid-template-columns: repeat(auto-fit, minmax(186px, max-content));
+  display: grid;
+  padding: var(--padding-s);
+}
+
+.marvel-character-item {
+  padding: var(--padding-s);
+  display: flex;
+}
+.marvel-character {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.marvel-character-img_container {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1.12;
+}
+
+.marvel-character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.marvel-character-bottom {
+  background-color: var(--color-secondary);
+  flex: 1;
+  padding: var(--padding);
+  border-top: 5px solid var(--color-accent);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    transform: rotate(45deg);
+  }
+}
+.marvel-character-name {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  flex: 1;
+}
