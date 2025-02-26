@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
 import Character from "./Character";
 import CharactersSkeleton from "./Skeleton";
 import "./Characters.scss";
+import Link from "../../components/TransitionLink";
 
 const Characters = ({ characters }) => {
   return (

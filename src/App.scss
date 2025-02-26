@@ -77,9 +77,6 @@ ul {
   align-items: center;
   justify-content: space-between;
   z-index: 1;
-  .marvel-header-favBtn {
-    animation: fadeIn 0.2s ease-in;
-  }
   .marvel-fav-icon {
     width: rem(24);
     height: rem(20);
@@ -91,6 +88,12 @@ ul {
   align-items: center;
   gap: var(--padding-s);
   text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.marvel-header-favBtn__hide {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .marvel-logo {
@@ -119,11 +122,28 @@ ul {
   flex-direction: column;
 }
 
-@keyframes fadeIn {
-  0% {
+@keyframes fade-in {
+  from {
     opacity: 0;
   }
-  100% {
+  to {
     opacity: 1;
   }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: fade-out 0.5s ease both;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.5s ease both;
 }

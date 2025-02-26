@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from "react";
 import CharactersContext from "../../context/Characters";
 import { useParams, Navigate } from "react-router";
-import { Link } from "react-router-dom";
 import "./Detail.scss";
 import { getMarvelCollection } from "../../server";
 import Items, { Skeleton } from "../../components/Items";
 import FavBtn from "../../components/FavBtn";
+import Link from "../../components/TransitionLink";
 
 const Detail = () => {
   const params = useParams();

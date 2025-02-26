@@ -31,6 +31,7 @@ const FavBtn = ({ item }) => {
       className="marvel-transparent-btn marvel-fav-btn"
       onClick={(e) => {
         e.preventDefault();
+        e.stopPropagation();
         handleClick();
       }}
     >

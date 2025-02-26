@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { ReactComponent as Logo } from "./../../assets/img/marvel-logo.svg";
 import { ReactComponent as FavIcon } from "./../../assets/img/icon-heart-active.svg";
 import FavoritesContext from "../../context/Favorites";
+import Link from "../../components/TransitionLink";
 
 const Layout = () => {
   const { favorites } = useContext(FavoritesContext);
@@ -18,12 +19,15 @@ const Layout = () => {
             aria-label="Go to home"
           />
         </Link>
-        {favorites.length > 0 ? (
-          <Link className="marvel-header-favBtn" to="/favorites">
-            <FavIcon className="marvel-fav-icon" />
-            <span className="marvel-favBtn-badge">{favorites.length}</span>
-          </Link>
-        ) : null}
+        <Link
+          className={`marvel-header-favBtn ${
+            favorites.length === 0 ? "marvel-header-favBtn__hide" : ""
+          }`}
+          to="/favorites"
+        >
+          <FavIcon className="marvel-fav-icon" />
+          <span className="marvel-favBtn-badge">{favorites.length}</span>
+        </Link>
       </header>
       <div className="marvel-content">
         <Outlet />
