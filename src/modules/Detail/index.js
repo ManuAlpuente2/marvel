@@ -45,7 +45,7 @@ const Detail = () => {
     const hasAnyData = dataKeys.some((key) => character?.[key]?.available > 0);
     if (!hasAnyData) {
       return (
-        <div className="marvel-detail-no-content">
+        <div className="marvel-no-content marvel-detail-no-content">
           <div className="marvel-detail-container">
             <p>No additional content available for this character.</p>
             <Link className="marvel-btn" to="/">
@@ -98,7 +98,8 @@ const Detail = () => {
                     ? character?.[key]?.available
                     : 20
                 }
-                itemsKey={key}></Skeleton>
+                itemsKey={key}
+              ></Skeleton>
             ) : null
           )}
           {renderNoContent()}

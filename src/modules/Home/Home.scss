@@ -1,0 +1,30 @@
+@import "./../../assets/functions.scss";
+.home-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3.125rem;
+  flex: 1 1;
+}
+
+.no-results {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.marvel-search {
+  padding: var(--padding-s) var(--padding) 0;
+}
+.home-search-results {
+  font-size: var(--font-size-xs);
+  margin: rem(8) 0 0;
+}
+
+@media screen and (min-width: rem(1024)) {
+  .marvel-search {
+    padding: rem(24) rem(48);
+  }
+}

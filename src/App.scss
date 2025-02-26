@@ -43,6 +43,8 @@ ul {
   font-size: var(--font-size-m);
   text-transform: uppercase;
   transition: all var(--transition-duration) ease;
+  background: white;
+  font-family: var(--font-family);
   &:hover {
     background-color: var(--color-accent);
     color: var(--color-primary);
@@ -120,6 +122,12 @@ ul {
   display: flex;
   flex: 1;
   flex-direction: column;
+}
+
+@media screen and (min-width: 1024px) {
+  .marvel-header {
+    padding: var(--padding) rem(48);
+  }
 }
 
 @keyframes fade-in {

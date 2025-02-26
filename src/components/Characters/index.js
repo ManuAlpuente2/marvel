@@ -4,6 +4,7 @@ import "./Characters.scss";
 import Link from "../../components/TransitionLink";
 
 const Characters = ({ characters }) => {
+  if (!characters?.length) return;
   return (
     <ul className="marvel-characters">
       {characters.map((character) => (

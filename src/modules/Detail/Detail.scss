@@ -35,8 +35,9 @@
 }
 .marvel-detail-txt {
   overflow: hidden;
-  padding: var(--padding);
+  padding: rem(24) var(--padding) var(--padding);
   width: 100%;
+  min-height: rem(80);
 }
 .marvel-detail-title {
   margin: 0;
@@ -68,7 +69,7 @@
   text-align: center;
 }
 
-.marvel-detail-no-content {
+.marvel-no-content {
   font-size: var(--font-size-l);
 }
 

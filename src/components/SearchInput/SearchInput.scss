@@ -1,0 +1,26 @@
+@import "./../../assets/functions.scss";
+
+.marvel-search-input {
+  width: 100%;
+  -webkit-appearance: none;
+  width: 100%;
+  -webkit-appearance: none;
+  border: 0;
+  border-bottom: 1px solid var(--color-secondary);
+  padding: var(--padding-s) 0 var(--padding-s) rem(20);
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-m);
+}
+.marvel-input-container {
+  position: relative;
+}
+.marvel-icon-search {
+  position: absolute;
+  left: 0;
+  width: rem(12);
+  height: rem(12);
+  top: 50%;
+  margin-top: rem(-6);
+  pointer-events: none;
+}

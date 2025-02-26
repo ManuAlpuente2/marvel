@@ -113,3 +113,8 @@
     grid-template-columns: repeat(auto-fill, minmax(rem(186), 1fr));
   }
 }
+@media screen and (min-width: rem(1024)) {
+  .marvel-characters {
+    padding: var(--padding-s) rem(40);
+  }
+}
