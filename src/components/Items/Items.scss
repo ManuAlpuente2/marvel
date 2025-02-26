@@ -2,6 +2,7 @@
 
 .marvel-detail-content {
   margin: rem(25) 0;
+  padding: 0 var(--padding);
 }
 .marvel-detail-items-container {
   overflow-x: scroll;
@@ -35,6 +36,16 @@
 .marvel-detail-item-img_container {
   aspect-ratio: 1 / 1.5;
   overflow: hidden;
+  .marvel-detail-events & {
+    /* Los eventos siempre son cuadrados */
+    aspect-ratio: 1 / 1;
+  }
+  .marvel-detail-series & {
+    .marvel-detail-item-img {
+      /* Las series tienen tamaños irregulares */
+      object-fit: contain;
+    }
+  }
 }
 .marvel-detail-item-img {
   width: 100%;
@@ -53,10 +64,4 @@
 }
 .marvel-detail-item-year {
   font-size: var(--font-size-s);
-}
-
-@media screen and (min-width: rem(580)) {
-  .marvel-detail-items-title {
-    font-size: var(--font-size-xl);
-  }
 }

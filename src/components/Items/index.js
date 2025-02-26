@@ -21,16 +21,23 @@ const Items = ({ data, itemsKey }) => {
     }
   };
 
-  const getItemUrl = (comic) => {
-    return comic.urls.find((url) => url.type === "detail").url;
+  const getItemUrl = (item) => {
+    return item.urls.find((url) => url.type === "detail").url;
+  };
+
+  const getItemImg = ({ item, itemsKey }) => {
+    if (itemsKey === "events") {
+      return `${item.thumbnail.path}/standard_xlarge.${item.thumbnail.extension}`;
+    }
+    return `${item.thumbnail.path}/portrait_incredible.${item.thumbnail.extension}`;
   };
 
   return (
     <div className="marvel-detail-content">
-      <div className={`marvel-container marvel-detail-${itemsKey}-conainer`}>
+      <div className={`marvel-container marvel-detail-${itemsKey}-container`}>
         <h3 className="marvel-detail-items-title">{itemsKey}</h3>
         <div className="marvel-detail-items-container">
-          <ul className="marvel-detail-items marvel-detail-comics">
+          <ul className={`marvel-detail-items marvel-detail-${itemsKey}`}>
             {data.map((item) => (
               <li itemsKey={item.id} className="marvel-detail-item">
                 <a
@@ -43,7 +50,7 @@ const Items = ({ data, itemsKey }) => {
                     <img
                       className="marvel-detail-item-img"
                       alt={item.title}
-                      src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                      src={getItemImg({ item, itemsKey })}
                     ></img>
                   </div>
                   <h4 className="marvel-detail-item-title">{item.title}</h4>

@@ -1,19 +1,11 @@
 import "./Skeleton.scss";
 
-const Skeleton = ({
-  className = "",
-  width = "100%",
-  height,
-  children,
-  as: Component = "div",
-}) => {
+const Skeleton = ({ className = "", width = "100%", height }) => {
   return (
-    <Component
+    <div
       className={`${className} marvel-skeleton`}
       style={{ width, height }}
-    >
-      {children}
-    </Component>
+    ></div>
   );
 };
 

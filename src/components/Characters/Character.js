@@ -1,4 +1,4 @@
-import { ReactComponent as FavIcon } from "./../../assets/img/icon-heart.svg";
+import FavBtn from "../FavBtn";
 
 const Character = ({ character }) => {
   return (
@@ -6,14 +6,14 @@ const Character = ({ character }) => {
       <div className="marvel-character-img_container">
         <img
           className="marvel-character-img"
-          src={`${character?.thumbnail?.path}/portrait_uncanny.${character?.thumbnail?.extension}`}
+          src={`${character?.thumbnail?.path}/standard_xlarge.${character?.thumbnail?.extension}`}
           alt={character.name}
           title={`Go to ${character.name} detail`}
         />
       </div>
       <div className="marvel-character-bottom">
         <h2 className="marvel-character-name">{character.name}</h2>
-        <FavIcon />
+        <FavBtn item={character} />
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 @import "./../../assets/functions.scss";
 
 .marvel-characters {
-  grid-template-columns: repeat(auto-fit, minmax(186px, max-content));
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(rem(160), 1fr));
+  grid-template-rows: auto;
   padding: var(--padding-s);
   width: 100%;
 }
@@ -64,10 +65,23 @@
 }
 
 .marvel-characters-skeleton {
-  .marvel-character-bottom {
-    border-color: transparent;
-    background-color: transparent;
-    padding-left: 0;
-    padding-right: 0;
+  .marvel-character-img_container {
+    aspect-ratio: 1 / 1.52;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      right: -12px;
+      width: 24px;
+      height: 24px;
+      background: var(--color-primary);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+@media screen and (min-width: rem(420)) {
+  .marvel-characters {
+    grid-template-columns: repeat(auto-fill, minmax(rem(186), 1fr));
   }
 }

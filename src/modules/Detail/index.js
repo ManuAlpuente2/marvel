@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./Detail.scss";
 import { getMarvelCollection } from "../../server";
 import Items, { Skeleton } from "../../components/Items";
+import FavBtn from "../../components/FavBtn";
 
 const Detail = () => {
   const params = useParams();
@@ -69,7 +70,12 @@ const Detail = () => {
                 />
               </div>
               <div className="marvel-detail-txt">
-                <h2 className="marvel-detail-title">{character.name}</h2>
+                <h2 className="marvel-detail-title">
+                  <span className="marvel-detail-title-txt">
+                    {character.name}
+                  </span>
+                  <FavBtn item={character} />
+                </h2>
                 {character?.description ? (
                   <div className="marvel-detail-description">
                     <p>{character.description}</p>
@@ -83,7 +89,11 @@ const Detail = () => {
               <Items key={key} itemsKey={key} data={data[key]} />
             ) : character?.[key]?.available > 0 ? (
               <Skeleton
-                length={character?.[key]?.available}
+                length={
+                  character?.[key]?.available < 20
+                    ? character?.[key]?.available
+                    : 20
+                }
                 itemsKey={key}
               ></Skeleton>
             ) : null

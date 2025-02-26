@@ -48,6 +48,21 @@ ul {
     color: var(--color-primary);
   }
 }
+.marvel-transparent-btn {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* End common */
 
 .marvel-header {
   background-color: var(--color-secondary);
@@ -62,6 +77,20 @@ ul {
   align-items: center;
   justify-content: space-between;
   z-index: 1;
+  .marvel-header-favBtn {
+    animation: fadeIn 0.2s ease-in;
+  }
+  .marvel-fav-icon {
+    width: rem(24);
+    height: rem(20);
+    display: block;
+  }
+}
+.marvel-header-favBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-s);
+  text-decoration: none;
 }
 
 .marvel-logo {
@@ -74,6 +103,7 @@ ul {
   min-height: 100dvh;
   display: flex;
   width: 100%;
+  flex-direction: column;
 }
 
 .marvel-loading {
@@ -87,4 +117,13 @@ ul {
   display: flex;
   flex: 1;
   flex-direction: column;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

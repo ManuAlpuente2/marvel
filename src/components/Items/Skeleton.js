@@ -2,7 +2,7 @@ import Skeleton from "../Skeleton";
 
 const ItemsSkeleton = ({ itemsKey = null, length = 20 }) => {
   return (
-    <div className="marvel-detail-content">
+    <div className={`marvel-detail-content marvel-detail-${itemsKey}`}>
       <div className={`marvel-container`}>
         <h3 className="marvel-detail-items-title">{itemsKey}</h3>
         <div className="marvel-detail-items-container">
