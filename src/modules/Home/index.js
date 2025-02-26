@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useCallback, useRef } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import CharactersContext from "../../context/Characters";
 import { getMarvelCharacters } from "./../../server";
 import Characters, { CharactersSkeleton } from "../../components/Characters";
@@ -15,32 +15,29 @@ const useCharacterSearch = () => {
   const lastRequestId = useRef(0);
   const initialLoadDone = useRef(false);
 
-  const fetchCharacters = useCallback(
-    async (term = "") => {
-      const currentRequestId = ++lastRequestId.current;
-      setSearchTerm(term);
+  const fetchCharacters = async (term = "") => {
+    const currentRequestId = ++lastRequestId.current;
+    setSearchTerm(term);
 
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await getMarvelCharacters({ search: term });
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getMarvelCharacters({ search: term });
 
-        if (currentRequestId === lastRequestId.current) {
-          setCharacters((prev) => ({ ...prev, data: data?.results }));
-          initialLoadDone.current = true;
-        }
-      } catch (err) {
-        if (currentRequestId === lastRequestId.current) {
-          setError(err.message || "Error al cargar los personajes");
-        }
-      } finally {
-        if (currentRequestId === lastRequestId.current) {
-          setLoading(false);
-        }
+      if (currentRequestId === lastRequestId.current) {
+        setCharacters((prev) => ({ ...prev, data: data?.results }));
+        initialLoadDone.current = true;
       }
-    },
-    [setCharacters]
-  );
+    } catch (err) {
+      if (currentRequestId === lastRequestId.current) {
+        setError(err.message || "Error al cargar los personajes");
+      }
+    } finally {
+      if (currentRequestId === lastRequestId.current) {
+        setLoading(false);
+      }
+    }
+  };
 
   return {
     loading,
@@ -61,23 +58,31 @@ const Home = () => {
     fetchCharacters,
     initialLoadDone,
   } = useCharacterSearch();
+  const searchInputRef = useRef(null);
 
-  const debouncedSearch = useCallback(
-    debounce((searchTerm) => {
-      fetchCharacters(searchTerm);
-    }, 300),
-    [fetchCharacters]
-  );
+  const debouncedSearch = useRef(
+    debounce((term) => {
+      fetchCharacters(term);
+    }, 300)
+  ).current;
 
   useEffect(() => {
     if (!initialLoadDone && !characters.length) {
       fetchCharacters();
     }
-  }, [fetchCharacters, characters.length, initialLoadDone]);
+  }, [initialLoadDone, characters.length]);
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
     debouncedSearch(searchTerm);
+  };
+
+  const handleReset = () => {
+    if (searchInputRef.current) {
+      searchInputRef.current.value = "";
+      searchInputRef.current.focus();
+      handleSearch({ target: { value: "" } });
+    }
   };
 
   if (error) {
@@ -87,11 +92,8 @@ const Home = () => {
   const NoResults = ({ searchTerm }) => (
     <div className="no-results marvel-no-content">
       <p>No characters found with the search "{searchTerm}"</p>
-      <button
-        className="marvel-btn"
-        onClick={() => handleSearch({ target: { value: "" } })}
-      >
-        Go to home
+      <button className="marvel-btn" onClick={handleReset}>
+        TRY AGAIN
       </button>
     </div>
   );
@@ -99,7 +101,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="marvel-search">
-        <SearchInput onSearch={handleSearch} />
+        <SearchInput onSearch={handleSearch} ref={searchInputRef} />
         {loading ? (
           <Skeleton className="home-search-results" width="58px" />
         ) : (
