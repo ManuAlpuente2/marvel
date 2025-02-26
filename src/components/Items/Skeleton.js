@@ -9,8 +9,10 @@ const ItemsSkeleton = ({ itemsKey = null, length = 20 }) => {
           <ul className="marvel-detail-items marvel-detail-comics">
             {Array(length)
               .fill(1)
-              .map(() => (
-                <li className="marvel-detail-item">
+              .map((e, i) => (
+                <li
+                  className="marvel-detail-item"
+                  key={`detail-item-${itemsKey}-skeleton-${i}`}>
                   <span className="marvel-detail-item-link">
                     <div className="marvel-detail-item-img_container">
                       <Skeleton

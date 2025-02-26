@@ -1,5 +1,8 @@
 .marvel-fav-icon {
   display: block;
+  path {
+    transition: all var(--transition-duration) ease;
+  }
 }
 .marvel-favBtn-badge {
   color: var(--color-primary);

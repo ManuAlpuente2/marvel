@@ -27,7 +27,10 @@ const Detail = () => {
     }
     dataKeys.map((key) => {
       if (characterObj?.[key]?.available > 0) {
-        getMarvelCollection(characterObj?.[key]?.collectionURI).then((data) => {
+        getMarvelCollection({
+          collectionURI: characterObj?.[key]?.collectionURI,
+          key,
+        }).then((data) => {
           console.log({ [key]: data });
           setData((d) => ({ ...d, [key]: data?.results }));
         });
@@ -89,13 +92,13 @@ const Detail = () => {
               <Items key={key} itemsKey={key} data={data[key]} />
             ) : character?.[key]?.available > 0 ? (
               <Skeleton
+                key={key}
                 length={
                   character?.[key]?.available < 20
                     ? character?.[key]?.available
                     : 20
                 }
-                itemsKey={key}
-              ></Skeleton>
+                itemsKey={key}></Skeleton>
             ) : null
           )}
           {renderNoContent()}

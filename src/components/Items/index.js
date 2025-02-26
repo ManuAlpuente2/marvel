@@ -39,7 +39,10 @@ const Items = ({ data, itemsKey }) => {
         <div className="marvel-detail-items-container">
           <ul className={`marvel-detail-items marvel-detail-${itemsKey}`}>
             {data.map((item) => (
-              <li itemsKey={item.id} className="marvel-detail-item">
+              <li
+                key={`items-${itemsKey}-${item.id}`}
+                className="marvel-detail-item"
+              >
                 <a
                   href={getItemUrl(item)}
                   className="marvel-detail-item-link"

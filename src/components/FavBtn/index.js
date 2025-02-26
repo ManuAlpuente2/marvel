@@ -36,9 +36,9 @@ const FavBtn = ({ item }) => {
       }}
     >
       {isFavorite ? (
-        <FavIconActive className="marvel-fav-icon" />
+        <FavIconActive className="marvel-fav-icon marvel-fav-icon__on" />
       ) : (
-        <FavIcon className="marvel-fav-icon" />
+        <FavIcon className="marvel-fav-icon marvel-fav-icon__off" />
       )}
     </button>
   );

@@ -10,10 +10,24 @@ export const getMarvelCharacters = () => {
     .then((data) => data.data);
 };
 
-export const getMarvelCollection = (collectionURI) => {
+export const getMarvelCollection = ({ collectionURI, key }) => {
   const timeStamp = new Date().getTime();
   const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
-  const url = `${collectionURI}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=20`;
+  let orderParam = "";
+  switch (key) {
+    case "comics":
+      orderParam = "&orderBy=-onsaleDate";
+      break;
+    case "series":
+      orderParam = "&orderBy=-startYear";
+      break;
+    case "events":
+      orderParam = "&orderBy=-modified";
+      break;
+    default:
+      orderParam = "";
+  }
+  const url = `${collectionURI}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=20${orderParam}`;
   return fetch(url)
     .then((response) => response.json())
     .then((data) => data.data);

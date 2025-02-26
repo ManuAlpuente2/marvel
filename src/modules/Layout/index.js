@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { ReactComponent as Logo } from "./../../assets/img/marvel-logo.svg";
+import { ReactComponent as Logo } from "./../../assets/img/logo.svg";
 import { ReactComponent as FavIcon } from "./../../assets/img/icon-heart-active.svg";
 import FavoritesContext from "../../context/Favorites";
 import Link from "../../components/TransitionLink";

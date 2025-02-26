@@ -42,7 +42,7 @@ ul {
   font-weight: 700;
   font-size: var(--font-size-m);
   text-transform: uppercase;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all var(--transition-duration) ease;
   &:hover {
     background-color: var(--color-accent);
     color: var(--color-primary);
@@ -76,7 +76,7 @@ ul {
   gap: var(--padding);
   align-items: center;
   justify-content: space-between;
-  z-index: 1;
+  z-index: 2;
   .marvel-fav-icon {
     width: rem(24);
     height: rem(20);
@@ -89,7 +89,7 @@ ul {
   gap: var(--padding-s);
   text-decoration: none;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-duration) ease;
 }
 .marvel-header-favBtn__hide {
   opacity: 0;
