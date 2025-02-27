@@ -8,10 +8,10 @@ import SearchInput from "../../components/SearchInput";
 import "./Home.scss";
 
 const useCharacterSearch = () => {
+  const { characters, setCharacters } = useContext(CharactersContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const { characters, setCharacters } = useContext(CharactersContext);
+  const [searchTerm, setSearchTerm] = useState(characters?.searchTerm || "");
   const lastRequestId = useRef(0);
   const initialLoadDone = useRef(false);
 
@@ -25,7 +25,11 @@ const useCharacterSearch = () => {
       const data = await getMarvelCharacters({ search: term });
 
       if (currentRequestId === lastRequestId.current) {
-        setCharacters((prev) => ({ ...prev, data: data?.results }));
+        setCharacters((prev) => ({
+          ...prev,
+          data: data?.results,
+          searchTerm: term,
+        }));
         initialLoadDone.current = true;
       }
     } catch (err) {
@@ -43,6 +47,7 @@ const useCharacterSearch = () => {
     loading,
     error,
     searchTerm,
+    setSearchTerm,
     characters: characters?.data || [],
     fetchCharacters,
     initialLoadDone: initialLoadDone.current,
@@ -55,6 +60,7 @@ const Home = () => {
     error,
     characters,
     searchTerm,
+    setSearchTerm,
     fetchCharacters,
     initialLoadDone,
   } = useCharacterSearch();
@@ -68,13 +74,14 @@ const Home = () => {
 
   useEffect(() => {
     if (!initialLoadDone && !characters.length) {
-      fetchCharacters();
+      fetchCharacters(searchTerm);
     }
-  }, [initialLoadDone, characters.length]);
+  }, [initialLoadDone, characters.length, searchTerm]);
 
   const handleSearch = (e) => {
-    const searchTerm = e.target.value;
-    debouncedSearch(searchTerm);
+    const term = e.target.value;
+    setSearchTerm(term);
+    debouncedSearch(term);
   };
 
   const handleReset = () => {
@@ -101,7 +108,11 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="marvel-search">
-        <SearchInput onSearch={handleSearch} ref={searchInputRef} />
+        <SearchInput
+          value={searchTerm}
+          onSearch={handleSearch}
+          ref={searchInputRef}
+        />
         {loading ? (
           <Skeleton className="home-search-results" width="58px" />
         ) : (
