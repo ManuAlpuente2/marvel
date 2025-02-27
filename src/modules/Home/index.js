@@ -26,23 +26,17 @@ const Home = () => {
     if (characters?.searchTerm) {
       setSearchTerm(characters.searchTerm);
     }
-
-    // Carga inicial si es necesario
     if (!initialLoadDone && (!characters?.data || !characters.data.length)) {
-      debouncedSearch(searchTerm);
+      getCharacters();
     }
   }, []);
 
-  const getCharacters = async (term = "") => {
+  const getCharacters = (term = "") => {
     const currentRequestId = ++lastRequestId.current;
     setSearchTerm(term);
-
-    try {
-      setLoading(true);
-      setError(null);
-      const data = await getMarvelCharacters({ search: term });
-
-      // Solo actualizamos el estado si esta es la solicitud más reciente
+    setLoading(true);
+    setError(null);
+    getMarvelCharacters({ search: term }).then((data) => {
       if (currentRequestId === lastRequestId.current) {
         setCharacters((c) => ({
           ...c,
@@ -50,16 +44,9 @@ const Home = () => {
           searchTerm: term,
         }));
         setInitialLoadDone(true);
-      }
-    } catch (err) {
-      if (currentRequestId === lastRequestId.current) {
-        setError(err.message || "Error al cargar los personajes");
-      }
-    } finally {
-      if (currentRequestId === lastRequestId.current) {
         setLoading(false);
       }
-    }
+    });
   };
 
   const handleSearch = (e) => {
