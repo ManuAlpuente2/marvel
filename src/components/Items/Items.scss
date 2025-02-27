@@ -15,11 +15,6 @@
     background: var(--color-accent);
   }
 }
-.marvel-detail-items-title {
-  font-size: var(--font-size-l);
-  text-transform: uppercase;
-  margin: rem(25) 0;
-}
 .marvel-detail-items {
   display: flex;
   gap: var(--padding);

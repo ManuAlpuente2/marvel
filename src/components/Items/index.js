@@ -35,26 +35,23 @@ const Items = ({ data, itemsKey }) => {
   return (
     <div className="marvel-detail-content">
       <div className={`marvel-container marvel-detail-${itemsKey}-container`}>
-        <h3 className="marvel-detail-items-title">{itemsKey}</h3>
+        <h3 className="marvel-title marvel-detail-items-title">{itemsKey}</h3>
         <div className="marvel-detail-items-container">
           <ul className={`marvel-detail-items marvel-detail-${itemsKey}`}>
             {data.map((item) => (
               <li
                 key={`items-${itemsKey}-${item.id}`}
-                className="marvel-detail-item"
-              >
+                className="marvel-detail-item">
                 <a
                   href={getItemUrl(item)}
                   className="marvel-detail-item-link"
                   target="_blank"
-                  rel="noreferrer"
-                >
+                  rel="noreferrer">
                   <div className="marvel-detail-item-img_container">
                     <img
                       className="marvel-detail-item-img"
                       alt={item.title}
-                      src={getItemImg({ item, itemsKey })}
-                    ></img>
+                      src={getItemImg({ item, itemsKey })}></img>
                   </div>
                   <h4 className="marvel-detail-item-title">{item.title}</h4>
                   <span className="marvel-detail-item-year">

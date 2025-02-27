@@ -1,8 +1,9 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import CharactersContext from "../../context/Characters";
+import FavoritesContext from "../../context/Favorites";
 import { useParams, Navigate } from "react-router";
 import "./Detail.scss";
-import { getMarvelCollection } from "../../server";
+import { getMarvelCollection, getMarvelCharacter } from "../../server";
 import Items, { Skeleton } from "../../components/Items";
 import FavBtn from "../../components/FavBtn";
 import Link from "../../components/TransitionLink";
@@ -10,25 +11,36 @@ import Link from "../../components/TransitionLink";
 const Detail = () => {
   const params = useParams();
   const { characters } = useContext(CharactersContext);
+  const { favorites } = useContext(FavoritesContext);
   const [character, setCharacter] = useState(null);
   const [data, setData] = useState({});
   const dataKeys = ["comics", "series", "events"];
+  const checkData = useRef(false);
 
   useEffect(() => {
-    if (!characters?.data) return;
-    const characterObj = characters?.data.find(
-      (c) => c.id.toString() === params.id
-    );
-    if (!characterObj) {
-      return <Navigate to="/" />;
-    } else {
-      console.log({ characterObj });
+    if (!favorites.length) return;
+    if (checkData.current) return;
+    //Busco en favoritos o en el contexto de personajes
+    const characterObj =
+      characters?.data.find((c) => c.id.toString() === params.id) ||
+      favorites?.find((c) => c.id.toString() === params.id);
+    if (characterObj) {
       setCharacter(characterObj);
+    } else {
+      //Si no está en favoritos ni en el contexto de personajes, lo busco en la API
+      getMarvelCharacter({ id: params.id }).then((data) => {
+        setCharacter(data?.results[0]);
+      });
     }
+    checkData.current = true;
+  }, [favorites]);
+
+  useEffect(() => {
+    if (!character) return;
     dataKeys.map((key) => {
-      if (characterObj?.[key]?.available > 0) {
+      if (character?.[key]?.available > 0) {
         getMarvelCollection({
-          collectionURI: characterObj?.[key]?.collectionURI,
+          collectionURI: character?.[key]?.collectionURI,
           key,
         }).then((data) => {
           console.log({ [key]: data });
@@ -36,10 +48,7 @@ const Detail = () => {
         });
       }
     });
-  }, [params.id]);
-
-  //Si no hay datos redirijo a la página principal
-  if (!characters?.data) return <Navigate to="/" />;
+  }, [character]);
 
   const renderNoContent = () => {
     const hasAnyData = dataKeys.some((key) => character?.[key]?.available > 0);
@@ -98,8 +107,7 @@ const Detail = () => {
                     ? character?.[key]?.available
                     : 20
                 }
-                itemsKey={key}
-              ></Skeleton>
+                itemsKey={key}></Skeleton>
             ) : null
           )}
           {renderNoContent()}

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CharactersContext from "./context/Characters";
 import FavoritesContext from "./context/Favorites";
+import "./App.scss";
 
 import Layout from "./modules/Layout";
 import Favorites from "./modules/Favorites";
 import Home from "./modules/Home";
 import Detail from "./modules/Detail";
-import "./App.scss";
 
 function App() {
   const [characters, setCharacters] = useState(null);

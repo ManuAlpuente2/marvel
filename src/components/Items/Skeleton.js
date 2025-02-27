@@ -4,7 +4,7 @@ const ItemsSkeleton = ({ itemsKey = null, length = 20 }) => {
   return (
     <div className={`marvel-detail-content marvel-detail-${itemsKey}`}>
       <div className={`marvel-container`}>
-        <h3 className="marvel-detail-items-title">{itemsKey}</h3>
+        <h3 className="marvel-title marvel-detail-items-title">{itemsKey}</h3>
         <div className="marvel-detail-items-container">
           <ul className="marvel-detail-items marvel-detail-comics">
             {Array(length)

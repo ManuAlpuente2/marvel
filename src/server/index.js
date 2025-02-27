@@ -36,3 +36,12 @@ export const getMarvelCollection = ({ collectionURI, key }) => {
     .then((response) => response.json())
     .then((data) => data.data);
 };
+
+export const getMarvelCharacter = ({ id }) => {
+  const timeStamp = new Date().getTime();
+  const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
+  const url = `https://gateway.marvel.com:443/v1/public/characters/${id}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`;
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => data.data);
+};
