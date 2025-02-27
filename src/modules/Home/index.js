@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from "react";
+import React, { useRef, useContext, useState, useEffect } from "react";
 import CharactersContext from "../../context/Characters";
 import { getMarvelCharacters } from "./../../server";
 import Characters, { CharactersSkeleton } from "../../components/Characters";
@@ -7,15 +7,33 @@ import { debounce } from "lodash";
 import SearchInput from "../../components/SearchInput";
 import "./Home.scss";
 
-const useCharacterSearch = () => {
+const Home = () => {
   const { characters, setCharacters } = useContext(CharactersContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState(characters?.searchTerm || "");
+  const [initialLoadDone, setInitialLoadDone] = useState(false);
+  const searchInputRef = useRef();
   const lastRequestId = useRef(0);
-  const initialLoadDone = useRef(false);
 
-  const fetchCharacters = async (term = "") => {
+  const debouncedSearch = useRef(
+    debounce((term) => {
+      getCharacters(term);
+    }, 300)
+  ).current;
+
+  useEffect(() => {
+    if (characters?.searchTerm) {
+      setSearchTerm(characters.searchTerm);
+    }
+
+    // Carga inicial si es necesario
+    if (!initialLoadDone && (!characters?.data || !characters.data.length)) {
+      debouncedSearch(searchTerm);
+    }
+  }, []);
+
+  const getCharacters = async (term = "") => {
     const currentRequestId = ++lastRequestId.current;
     setSearchTerm(term);
 
@@ -24,13 +42,14 @@ const useCharacterSearch = () => {
       setError(null);
       const data = await getMarvelCharacters({ search: term });
 
+      // Solo actualizamos el estado si esta es la solicitud más reciente
       if (currentRequestId === lastRequestId.current) {
-        setCharacters((prev) => ({
-          ...prev,
+        setCharacters((c) => ({
+          ...c,
           data: data?.results,
           searchTerm: term,
         }));
-        initialLoadDone.current = true;
+        setInitialLoadDone(true);
       }
     } catch (err) {
       if (currentRequestId === lastRequestId.current) {
@@ -42,41 +61,6 @@ const useCharacterSearch = () => {
       }
     }
   };
-
-  return {
-    loading,
-    error,
-    searchTerm,
-    setSearchTerm,
-    characters: characters?.data || [],
-    fetchCharacters,
-    initialLoadDone: initialLoadDone.current,
-  };
-};
-
-const Home = () => {
-  const {
-    loading,
-    error,
-    characters,
-    searchTerm,
-    setSearchTerm,
-    fetchCharacters,
-    initialLoadDone,
-  } = useCharacterSearch();
-  const searchInputRef = useRef(null);
-
-  const debouncedSearch = useRef(
-    debounce((term) => {
-      fetchCharacters(term);
-    }, 300)
-  ).current;
-
-  useEffect(() => {
-    if (!initialLoadDone && !characters.length) {
-      fetchCharacters(searchTerm);
-    }
-  }, [initialLoadDone, characters.length, searchTerm]);
 
   const handleSearch = (e) => {
     const term = e.target.value;
@@ -92,18 +76,22 @@ const Home = () => {
     }
   };
 
+  const renderNoResults = () => {
+    return (
+      <div className="no-results marvel-no-content">
+        <p>No characters found with the search "{searchTerm}"</p>
+        <button className="marvel-btn" onClick={handleReset}>
+          TRY AGAIN
+        </button>
+      </div>
+    );
+  };
+
+  const charactersList = characters?.data || [];
+
   if (error) {
     return <div className="error-message">{error}</div>;
   }
-
-  const NoResults = ({ searchTerm }) => (
-    <div className="no-results marvel-no-content">
-      <p>No characters found with the search "{searchTerm}"</p>
-      <button className="marvel-btn" onClick={handleReset}>
-        TRY AGAIN
-      </button>
-    </div>
-  );
 
   return (
     <div className="home-container">
@@ -117,16 +105,17 @@ const Home = () => {
           <Skeleton className="home-search-results" width="58px" />
         ) : (
           <p className="home-search-results">
-            {characters.length} {characters.length === 1 ? "RESULT" : "RESULTS"}
+            {charactersList.length}{" "}
+            {charactersList.length === 1 ? "RESULT" : "RESULTS"}
           </p>
         )}
       </div>
       {loading ? (
         <CharactersSkeleton />
-      ) : characters.length > 0 ? (
-        <Characters characters={characters} />
+      ) : charactersList.length > 0 ? (
+        <Characters characters={charactersList} />
       ) : (
-        searchTerm && <NoResults searchTerm={searchTerm} />
+        searchTerm && renderNoResults()
       )}
     </div>
   );
