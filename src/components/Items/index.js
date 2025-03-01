@@ -21,14 +21,22 @@ const Items = ({ data, itemsKey }) => {
   };
 
   const getItemUrl = (item) => {
-    return item.urls.find((url) => url.type === "detail").url;
+    return item.urls
+      .find((url) => url.type === "detail")
+      .url.replace("http://", "https://");
   };
 
   const getItemImg = ({ item, itemsKey }) => {
     if (itemsKey === "events") {
-      return `${item.thumbnail.path}/standard_xlarge.${item.thumbnail.extension}`;
+      return `${item.thumbnail.path.replace(
+        "http://",
+        "https://"
+      )}/standard_xlarge.${item.thumbnail.extension}`;
     }
-    return `${item.thumbnail.path}/portrait_incredible.${item.thumbnail.extension}`;
+    return `${item.thumbnail.path.replace(
+      "http://",
+      "https://"
+    )}/portrait_incredible.${item.thumbnail.extension}`;
   };
 
   return (

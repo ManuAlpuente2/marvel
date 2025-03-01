@@ -84,7 +84,10 @@ const Detail = () => {
               <div className="marvel-detail-image_container">
                 <img
                   className="marvel-detail-image"
-                  src={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
+                  src={`${character?.thumbnail?.path.replace(
+                    "http://",
+                    "https://"
+                  )}.${character?.thumbnail?.extension}`}
                   alt={character.name}
                   title={character.name}
                 />
