@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useEffect, Fragment } from "react";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import CharactersContext from "./context/Characters";
 import FavoritesContext from "./context/Favorites";
 import "./App.scss";
@@ -27,20 +27,21 @@ function App() {
   }, []);
 
   return (
-    <CharactersContext.Provider value={charactersValue}>
-      <FavoritesContext.Provider value={favoritesValue}>
-        <BrowserRouter
-          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="favorites" element={<Favorites />} />
-              <Route path="character/:id" element={<Detail />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </FavoritesContext.Provider>
-    </CharactersContext.Provider>
+    <Fragment>
+      <CharactersContext.Provider value={charactersValue}>
+        <FavoritesContext.Provider value={favoritesValue}>
+          <HashRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="favorites" element={<Favorites />} />
+                <Route path="character/:id" element={<Detail />} />
+              </Route>
+            </Routes>
+          </HashRouter>
+        </FavoritesContext.Provider>
+      </CharactersContext.Provider>
+    </Fragment>
   );
 }
 
