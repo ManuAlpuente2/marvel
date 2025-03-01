@@ -2,7 +2,6 @@ import "./Items.scss";
 import Skeleton from "./Skeleton";
 
 const Items = ({ data, itemsKey }) => {
-  console.log("items", { data, itemsKey });
   const getItemYear = ({ item, itemsKey }) => {
     switch (true) {
       case itemsKey === "series":

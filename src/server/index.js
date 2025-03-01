@@ -1,14 +1,14 @@
 import md5 from "md5";
-import { privateKey, publicKey } from "./../constants";
+import config from "./../config";
 
 export const getMarvelCharacters = ({ search = "" }) => {
   const timeStamp = new Date().getTime();
-  const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
+  const hash = md5(`${timeStamp}${config.privateKey}${config.publicKey}`);
   let searchStr = "";
   if (search.length) {
     searchStr = `&nameStartsWith=${search}`;
   }
-  const url = `http://gateway.marvel.com/v1/public/characters?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=50${searchStr}`;
+  const url = `${config.apiUrl}characters?ts=${timeStamp}&apikey=${config.publicKey}&hash=${hash}&limit=${config.charactersLimit}${searchStr}`;
   return fetch(url)
     .then((response) => response.json())
     .then((data) => data.data);
@@ -16,7 +16,7 @@ export const getMarvelCharacters = ({ search = "" }) => {
 
 export const getMarvelCollection = ({ collectionURI, key }) => {
   const timeStamp = new Date().getTime();
-  const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
+  const hash = md5(`${timeStamp}${config.privateKey}${config.publicKey}`);
   let orderParam = "";
   switch (key) {
     case "comics":
@@ -31,7 +31,7 @@ export const getMarvelCollection = ({ collectionURI, key }) => {
     default:
       orderParam = "";
   }
-  const url = `${collectionURI}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}&limit=20${orderParam}`;
+  const url = `${collectionURI}?ts=${timeStamp}&apikey=${config.publicKey}&hash=${hash}&limit=${config.collectionsLimit}${orderParam}`;
   return fetch(url)
     .then((response) => response.json())
     .then((data) => data.data);
@@ -39,8 +39,8 @@ export const getMarvelCollection = ({ collectionURI, key }) => {
 
 export const getMarvelCharacter = ({ id }) => {
   const timeStamp = new Date().getTime();
-  const hash = md5(`${timeStamp}${privateKey}${publicKey}`);
-  const url = `https://gateway.marvel.com:443/v1/public/characters/${id}?ts=${timeStamp}&apikey=${publicKey}&hash=${hash}`;
+  const hash = md5(`${timeStamp}${config.privateKey}${config.publicKey}`);
+  const url = `${config.apiUrl}characters/${id}?ts=${timeStamp}&apikey=${config.publicKey}&hash=${hash}`;
   return fetch(url)
     .then((response) => response.json())
     .then((data) => data.data);

@@ -21,12 +21,11 @@ const Layout = () => {
         </Link>
         <Link
           className={`marvel-header-favBtn ${
-            favorites.length === 0 ? "marvel-header-favBtn__hide" : ""
+            favorites?.length === 0 ? "marvel-header-favBtn__hide" : ""
           }`}
-          to="/favorites"
-        >
+          to="/favorites">
           <FavIcon className="marvel-fav-icon" />
-          <span className="marvel-favBtn-badge">{favorites.length}</span>
+          <span className="marvel-favBtn-badge">{favorites?.length}</span>
         </Link>
       </header>
       <div className="marvel-content">

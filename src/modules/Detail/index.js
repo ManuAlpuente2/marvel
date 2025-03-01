@@ -1,13 +1,13 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import CharactersContext from "../../context/Characters";
 import FavoritesContext from "../../context/Favorites";
-import { useParams, Navigate } from "react-router";
+import { useParams } from "react-router";
 import "./Detail.scss";
 import { getMarvelCollection, getMarvelCharacter } from "../../server";
 import Items, { Skeleton } from "../../components/Items";
 import FavBtn from "../../components/FavBtn";
 import Link from "../../components/TransitionLink";
-
+import config from "../../config";
 const Detail = () => {
   const params = useParams();
   const { characters } = useContext(CharactersContext);
@@ -18,20 +18,22 @@ const Detail = () => {
   const checkData = useRef(false);
 
   useEffect(() => {
-    if (!favorites.length) return;
+    if (favorites === null) return;
     if (checkData.current) return;
     //Busco en favoritos o en el contexto de personajes
     const characterObj =
       characters?.data.find((c) => c.id.toString() === params.id) ||
       favorites?.find((c) => c.id.toString() === params.id);
     if (characterObj) {
-      console.log("Found character in favorites or context");
+      console.log(`Found character ${params.id} in favorites or context`);
       setCharacter(characterObj);
     } else {
       //Si no está en favoritos ni en el contexto de personajes, lo busco en la API
-      console.log("Not found in favorites or context, getting from API");
+      console.log(
+        `Character ${params.id} not found in favorites or context, getting from API`
+      );
       getMarvelCharacter({ id: params.id }).then((data) => {
-        console.log("Got character from API");
+        console.log("Found character in API");
         setCharacter(data?.results[0]);
       });
     }
@@ -43,7 +45,7 @@ const Detail = () => {
     dataKeys.map((key) => {
       if (character?.[key]?.available > 0) {
         console.log(
-          `Getting ${key} collection from API (${character?.[key]?.available} avalible)`
+          `Getting ${config.collectionsLimit} ${key} collection from API (${character?.[key]?.available} available)`
         );
         getMarvelCollection({
           collectionURI: character?.[key]?.collectionURI,
@@ -109,9 +111,9 @@ const Detail = () => {
               <Skeleton
                 key={key}
                 length={
-                  character?.[key]?.available < 20
+                  character?.[key]?.available < config.collectionsLimit
                     ? character?.[key]?.available
-                    : 20
+                    : config.collectionsLimit
                 }
                 itemsKey={key}></Skeleton>
             ) : null

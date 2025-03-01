@@ -5,6 +5,7 @@ import Characters, { CharactersSkeleton } from "../../components/Characters";
 import Skeleton from "../../components/Skeleton";
 import { debounce } from "lodash";
 import SearchInput from "../../components/SearchInput";
+import config from "../../config";
 import "./Home.scss";
 
 const Home = () => {
@@ -19,7 +20,7 @@ const Home = () => {
   const debouncedSearch = useRef(
     debounce((term) => {
       getCharacters(term);
-    }, 300)
+    }, config.searchDebounceTime)
   ).current;
 
   useEffect(() => {
@@ -35,15 +36,19 @@ const Home = () => {
     const currentRequestId = ++lastRequestId.current;
     console.log(`Getting characters with term: ${term}`);
     setSearchTerm(term);
-    console.log("Loading");
+    console.log("Loading characters");
     setLoading(true);
     setError(null);
     if (!term) {
       const cached = JSON.parse(localStorage.getItem("marvel-cache"));
       const cacheAge = new Date().getTime() - cached?.lastUpdated;
-      const oneDayInMs = 24 * 60 * 60 * 1000;
-      console.log(`Cache is ${Math.round(cacheAge / 1000)} seconds old`);
-      if (cached && cached.data && cacheAge < oneDayInMs) {
+      if (cached)
+        console.log(
+          `${cacheAge < config.cacheTime ? "✅" : "❌"} Cache is ${Math.round(
+            cacheAge / 1000
+          )} seconds old`
+        );
+      if (cached && cached.data && cacheAge < config.cacheTime) {
         setCharacters((c) => ({
           ...c,
           data: cached.data,
@@ -53,8 +58,7 @@ const Home = () => {
         setLoading(false);
         console.log(`Showing ${cached.data?.length} characters from cache`);
       } else {
-        console.log("No cached response or cache is older");
-        console.log("Getting new characters");
+        console.log("Getting fresh characters from server");
         getMarvelCharacters({}).then((data) => {
           if (currentRequestId === lastRequestId.current) {
             localStorage.setItem(
@@ -71,12 +75,14 @@ const Home = () => {
             }));
             setInitialLoadDone(true);
             setLoading(false);
-            console.log("Showing characters from server");
+            console.log(
+              `Showing ${data?.results?.length} characters from server`
+            );
           }
         });
       }
     } else {
-      console.log(`Getting characters with search term: ${term}`);
+      console.log(`Getting characters with search term: ${term}, from server`);
       getMarvelCharacters({ search: term }).then((data) => {
         if (currentRequestId === lastRequestId.current) {
           setCharacters((c) => ({

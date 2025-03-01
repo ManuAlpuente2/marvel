@@ -12,7 +12,7 @@ import Detail from "./modules/Detail";
 function App() {
   const [characters, setCharacters] = useState(null);
   const charactersValue = { characters, setCharacters };
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(null);
   const favoritesValue = { favorites, setFavorites };
 
   useEffect(() => {
@@ -21,13 +21,16 @@ function App() {
     if (favorites) {
       console.log(`Found ${favorites.length} favorites`);
       setFavorites(favorites);
+    } else {
+      setFavorites([]);
     }
   }, []);
 
   return (
     <CharactersContext.Provider value={charactersValue}>
       <FavoritesContext.Provider value={favoritesValue}>
-        <BrowserRouter>
+        <BrowserRouter
+          future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
