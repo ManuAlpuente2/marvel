@@ -14,12 +14,13 @@ const FavBtn = ({ item }) => {
   const isFavorite = checkIsFavorite({ item });
 
   const handleClick = () => {
-    console.log({ item });
     if (isFavorite) {
+      console.log(`Removing ${item.name} from favorites`);
       const newFavorites = favorites.filter((f) => f.id !== item.id);
       setFavorites(newFavorites);
       localStorage.setItem("marvel-favorites", JSON.stringify(newFavorites));
     } else {
+      console.log(`Adding ${item.name} to favorites`);
       const newFavorites = [...favorites, item];
       setFavorites(newFavorites);
       localStorage.setItem("marvel-favorites", JSON.stringify(newFavorites));
@@ -33,8 +34,7 @@ const FavBtn = ({ item }) => {
         e.preventDefault();
         e.stopPropagation();
         handleClick();
-      }}
-    >
+      }}>
       {isFavorite ? (
         <FavIconActive className="marvel-fav-icon marvel-fav-icon__on" />
       ) : (

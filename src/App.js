@@ -16,8 +16,10 @@ function App() {
   const favoritesValue = { favorites, setFavorites };
 
   useEffect(() => {
+    console.log("Getting favorites");
     const favorites = JSON.parse(localStorage.getItem("marvel-favorites"));
     if (favorites) {
+      console.log(`Found ${favorites.length} favorites`);
       setFavorites(favorites);
     }
   }, []);

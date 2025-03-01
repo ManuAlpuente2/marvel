@@ -1,3 +1,10 @@
+@import "./../../assets/functions.scss";
 .marvel-title-container {
-  padding: 0 3rem;
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: rem(1024)) {
+  .marvel-title-container {
+    padding: 0 3rem;
+  }
 }

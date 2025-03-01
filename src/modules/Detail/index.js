@@ -25,10 +25,13 @@ const Detail = () => {
       characters?.data.find((c) => c.id.toString() === params.id) ||
       favorites?.find((c) => c.id.toString() === params.id);
     if (characterObj) {
+      console.log("Found character in favorites or context");
       setCharacter(characterObj);
     } else {
       //Si no está en favoritos ni en el contexto de personajes, lo busco en la API
+      console.log("Not found in favorites or context, getting from API");
       getMarvelCharacter({ id: params.id }).then((data) => {
+        console.log("Got character from API");
         setCharacter(data?.results[0]);
       });
     }
@@ -39,11 +42,14 @@ const Detail = () => {
     if (!character) return;
     dataKeys.map((key) => {
       if (character?.[key]?.available > 0) {
+        console.log(
+          `Getting ${key} collection from API (${character?.[key]?.available} avalible)`
+        );
         getMarvelCollection({
           collectionURI: character?.[key]?.collectionURI,
           key,
         }).then((data) => {
-          console.log({ [key]: data });
+          console.log(`Found ${data?.results?.length} ${key} from API`);
           setData((d) => ({ ...d, [key]: data?.results }));
         });
       }
