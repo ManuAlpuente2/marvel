@@ -8,6 +8,7 @@ import Items, { Skeleton } from "../../components/Items";
 import FavBtn from "../../components/FavBtn";
 import Link from "../../components/TransitionLink";
 import config from "../../config";
+import { saferizeUrl } from "../../utils";
 const Detail = () => {
   const params = useParams();
   const { characters } = useContext(CharactersContext);
@@ -84,10 +85,9 @@ const Detail = () => {
               <div className="marvel-detail-image_container">
                 <img
                   className="marvel-detail-image"
-                  src={`${character?.thumbnail?.path.replace(
-                    "http://",
-                    "https://"
-                  )}.${character?.thumbnail?.extension}`}
+                  src={`${saferizeUrl(character?.thumbnail?.path)}.${
+                    character?.thumbnail?.extension
+                  }`}
                   alt={character.name}
                   title={character.name}
                 />

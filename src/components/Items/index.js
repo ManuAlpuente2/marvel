@@ -1,3 +1,4 @@
+import { saferizeUrl } from "../../utils";
 import "./Items.scss";
 import Skeleton from "./Skeleton";
 
@@ -21,22 +22,16 @@ const Items = ({ data, itemsKey }) => {
   };
 
   const getItemUrl = (item) => {
-    return item.urls
-      .find((url) => url.type === "detail")
-      .url.replace("http://", "https://");
+    return saferizeUrl(item.urls.find((url) => url.type === "detail").url);
   };
 
   const getItemImg = ({ item, itemsKey }) => {
+    const path = saferizeUrl(item.thumbnail.path);
+    const extension = item.thumbnail.extension;
     if (itemsKey === "events") {
-      return `${item.thumbnail.path.replace(
-        "http://",
-        "https://"
-      )}/standard_xlarge.${item.thumbnail.extension}`;
+      return `${saferizeUrl(path)}/standard_xlarge.${extension}`;
     }
-    return `${item.thumbnail.path.replace(
-      "http://",
-      "https://"
-    )}/portrait_incredible.${item.thumbnail.extension}`;
+    return `${path}/portrait_incredible.${extension}`;
   };
 
   return (
