@@ -31,7 +31,12 @@ export const getMarvelCollection = ({ collectionURI, key }) => {
     default:
       orderParam = "";
   }
-  const url = `${collectionURI}?ts=${timeStamp}&apikey=${config.publicKey}&hash=${hash}&limit=${config.collectionsLimit}${orderParam}`;
+  const url = `${collectionURI.replace(
+    "http://",
+    "https://"
+  )}?ts=${timeStamp}&apikey=${config.publicKey}&hash=${hash}&limit=${
+    config.collectionsLimit
+  }${orderParam}`;
   return fetch(url)
     .then((response) => response.json())
     .then((data) => data.data);
