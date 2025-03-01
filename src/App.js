@@ -30,7 +30,8 @@ function App() {
     <Fragment>
       <CharactersContext.Provider value={charactersValue}>
         <FavoritesContext.Provider value={favoritesValue}>
-          <HashRouter>
+          <HashRouter
+            future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
