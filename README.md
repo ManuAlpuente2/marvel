@@ -15,10 +15,6 @@ Una aplicación hecha con React que permite explorar personajes de Marvel, ver s
 - 🔄 Sistema de caché para reducir consumo de datos
 - 🌓 Configuraciones para desarrollo y producción
 
-## 🏗️ Arquitectura del Proyecto
-
-La aplicación está construida siguiendo una arquitectura modular y basada en componentes, con separación clara de responsabilidades.
-
 ## 🛠️ Parámetros de Configuración
 
 La aplicación utiliza diferentes parámetros de configuración para entornos de desarrollo y producción:
