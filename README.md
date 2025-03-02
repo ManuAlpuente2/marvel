@@ -1,5 +1,3 @@
-# 🦸‍♂️ Explorador de Personajes Marvel
-
 ![Logo de Marvel](https://manualpuente2.github.io/marvel/public/manuel.png?raw=true)
 
 Una aplicación hecha con React que permite explorar personajes de Marvel, ver sus detalles y guardar en favoritos. Desarrollada por [Manu Alpuente](https://www.linkedin.com/in/manu-alpuente/) entre el 24 de febrero y el 2 de marzo de 2025.
