@@ -22,13 +22,15 @@
     "sass": "^1.57.1"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:prod",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build && node scripts/dev-build.js",
-    "build:prod": "react-scripts build",
+    "build:prod": "node scripts/switch-config.js production && react-scripts build && node scripts/switch-config.js development",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "config:dev": "node scripts/switch-config.js development",
+    "config:prod": "node scripts/switch-config.js production"
   },
   "eslintConfig": {
     "extends": [
