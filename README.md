@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+# 🦸‍♂️ Explorador de Personajes Marvel
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Logo de Marvel](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Marvel_Logo.svg/200px-Marvel_Logo.svg.png)
 
-## Available Scripts
+Una aplicación hecha con React que permite explorar personajes de Marvel, ver sus detalles y guardar en favoritos. Desarrollada por [Manu Alpuente](https://www.linkedin.com/in/manu-alpuente/) entre el 24 de febrero y el 2 de marzo de 2025.
 
-In the project directory, you can run:
+## 💻 Demo
 
-### `npm start`
+- [Producción](https://manualpuente2.github.io/marvel/build/)
+- [Desarrollo](https://manualpuente2.github.io/marvel/dev/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ Características
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 🔍 Busca personajes de Marvel
+- 📊 Detalle de cada personaje con cómics, series y eventos de cada uno
+- ⭐ Guardado de personajes en favoritos
+- 🔄 Sistema de caché para reducir consumo de datos
+- 🌓 Configuraciones para desarrollo y producción
 
-### `npm test`
+## 🏗️ Arquitectura del Proyecto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+La aplicación está construida siguiendo una arquitectura modular y basada en componentes, con separación clara de responsabilidades.
 
-### `npm run build`
+## 🛠️ Parámetros de Configuración
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La aplicación utiliza diferentes parámetros de configuración para entornos de desarrollo y producción:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Parámetro            | Descripción                             | Desarrollo                              | Producción            |
+| -------------------- | --------------------------------------- | --------------------------------------- | --------------------- |
+| `privateKey`         | Clave privada de la API de Marvel       | Usada para autenticación de API         | Igual que desarrollo  |
+| `publicKey`          | Clave pública de la API de Marvel       | Usada para autenticación de API         | Igual que desarrollo  |
+| `apiUrl`             | URL base de la API de Marvel            | `https://gateway.marvel.com/v1/public/` | Igual que desarrollo  |
+| `charactersLimit`    | Número máximo de personajes a obtener   | 50                                      | Igual que desarrollo  |
+| `collectionsLimit`   | Número máximo de elementos de colección | 20                                      | Igual que desarrollo  |
+| `searchDebounceTime` | Retraso antes de ejecutar búsqueda (ms) | 300                                     | Igual que desarrollo  |
+| `cacheTime`          | Tiempo de almacenamiento en caché (ms)  | 30.000 (30 segundos)                    | 86.400.000 (24 horas) |
+| `enableLogs`         | Habilitar registros en consola          | true                                    | false                 |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Cómo instalar
 
-### `npm run eject`
+### Requisitos Previos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Node.js (v14 o superior)
+- npm o yarn
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Instalación
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clona el repositorio:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   git clone https://github.com/ManuAlpuente2/marvel
+   cd marvel
+   ```
 
-## Learn More
+2. Instalar:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. **Autenticación**: Antes de usar la aplicación, debes actualizar las claves de la API de Marvel en los archivos de configuración:
+   - Abre `src/config/development.js` y `src/config/production.js`
+   - Reemplaza los valores de `privateKey` y `publicKey` con tus propias claves de la API de Marvel
+   - Puedes obtener tus claves de API registrándote en el [Portal de Desarrolladores de Marvel](https://developer.marvel.com/)
 
-### Code Splitting
+### Ejecutar la Aplicación Localmente
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Para ejecutar la aplicación en modo desarrollo:
 
-### Analyzing the Bundle Size
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Esto iniciará la aplicación con la configuración de desarrollo. Visita [http://localhost:3000](http://localhost:3000) para verla en tu navegador.
 
-### Making a Progressive Web App
+## 🔄 Desarrollo vs Producción
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Modo Desarrollo
 
-### Advanced Configuration
+```bash
+# Cambiar a configuración de desarrollo
+npm run config:dev
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Iniciar la aplicación en modo desarrollo
+npm start
+```
 
-### Deployment
+Características del modo desarrollo:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Tiempo de caché más corto (30 segundos)
+- Registros de consola habilitados
+- Recarga en caliente para desarrollo más rápido
 
-### `npm run build` fails to minify
+### Modo Producción
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+# Cambiar a configuración de producción
+npm run config:prod
+
+# Construir la aplicación para producción
+npm run build:prod
+```
+
+### Construir para Despliegue
+
+Para construir la aplicación para despliegue en producción:
+
+```bash
+npm run build:prod
+```
+
+Los archivos generados se almacenarán en el directorio `build/`.
+
+## 📦 Despliegue
+
+Para desplegar en GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+Esto construirá la aplicación con la configuración de producción y la desplegará en GitHub Pages.
+
+## 🧰 Tecnologías y buenas prácticas
+
+- **Autenticación de API**: Implementación segura de autenticación con hash MD5 según los requisitos de Marvel.
+- **HTTPS**: Conversión automática de URLs HTTP a HTTPS para mayor seguridad.
+- **Búsqueda optimizada**: Mediante debounce y gestión de race errors.
+- **LocalStorage** para persistencia de datos y gestión de caché
+- SASS para estilos
+- React 19
+- React Router 6
+- Lodash para funciones de utilidad
+- MD5 para autenticación de API
+- GitHub Pages para despliegue
