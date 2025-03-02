@@ -15,6 +15,10 @@ Una aplicación hecha con React que permite explorar personajes de Marvel, ver s
 - 🔄 Sistema de caché para reducir consumo de datos
 - 🌓 Configuraciones para desarrollo y producción
 
+## 🏗️ Arquitectura del Proyecto
+
+La aplicación está construida siguiendo una arquitectura modular y basada en componentes, con separación clara de responsabilidades.
+
 ## 🛠️ Parámetros de Configuración
 
 La aplicación utiliza diferentes parámetros de configuración para entornos de desarrollo y producción:
@@ -30,6 +34,32 @@ La aplicación utiliza diferentes parámetros de configuración para entornos de
 | `cacheTime`          | Tiempo de almacenamiento en caché (ms)  | 30.000 (30 segundos)                    | 86.400.000 (24 horas) |
 | `enableLogs`         | Habilitar registros en consola          | true                                    | false                 |
 
+## 🎨 Estilos
+
+- En el fichero `src/assets/vars.scss` se han definido las variables css, en él se pueden modificar colores, tamaños, tipografías y animaciones de la app.
+  ```css
+  :root {
+  /* Colors */
+  --color-primary: #fff;
+  --color-secondary: #000;
+  --color-accent: #ec1d24;
+  --color-gray: #d9d9d9;
+  /* Sizes */
+  --padding: 1rem;
+  --padding-s: 0.5rem;
+  /* Fonts */
+  --font-family: "Roboto Condensed", serif;
+  --font-size-xs: 0.75rem;
+  --font-size-s: 0.875rem;
+  --font-size-m: 1rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-xxl: 2.5rem;
+  /* Others */
+  --transition-duration: 0.2s;
+  ```
+- Los tamaños de tipografias, márgenes, queries, etc. Se han definido usando `rem` para permitir la legilibilidad en ususarios que necesiten hacer zoom.
+
 ## 🚀 Cómo instalar
 
 ### Requisitos Previos
@@ -39,7 +69,7 @@ La aplicación utiliza diferentes parámetros de configuración para entornos de
 
 ### Instalación
 
-1. Clona el repositorio:
+1. Clona el repositorio
 
    ```bash
    git clone https://github.com/ManuAlpuente2/marvel
