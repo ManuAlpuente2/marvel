@@ -151,6 +151,7 @@ Esto construirá la aplicación con la configuración de producción y la desple
 - **HTTPS**: Conversión automática de URLs HTTP a HTTPS para mayor seguridad.
 - **Búsqueda optimizada**: Mediante debounce y gestión de race errors.
 - **LocalStorage** para persistencia de datos y gestión de caché
+- La app permite crear un acceso directo en dispositivos móviles y puede ser consultada sin conexión mientras duré la caché.
 - SASS para estilos
 - React 19
 - React Router 6
