@@ -114,7 +114,6 @@ Características del modo desarrollo:
 
 - Tiempo de caché más corto (30 segundos)
 - Registros de consola habilitados
-- Recarga en caliente para desarrollo más rápido
 
 ### Modo Producción
 
