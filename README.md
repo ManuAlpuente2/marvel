@@ -21,7 +21,8 @@ La aplicación está construida siguiendo una arquitectura modular y basada en c
 
 ## 🛠️ Parámetros de Configuración
 
-La aplicación utiliza diferentes parámetros de configuración para entornos de desarrollo y producción:
+La aplicación utiliza diferentes parámetros de configuración para entornos de desarrollo y producción, se pueden configurar en `src/config/development.js` y en `src/config/production.js`
+Los parámetros permitidos son los siguientes:
 
 | Parámetro            | Descripción                             | Desarrollo                              | Producción            |
 | -------------------- | --------------------------------------- | --------------------------------------- | --------------------- |
