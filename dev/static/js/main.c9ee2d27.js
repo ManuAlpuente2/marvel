@@ -1,4 +1,4 @@
-/*! For license information please see main.f23eed69.js.LICENSE.txt */
+/*! For license information please see main.c9ee2d27.js.LICENSE.txt */
 (() => {
   var e = {
       4: (e, t, n) => {
@@ -18900,8 +18900,8 @@
           return (0, We.jsx)(Le, {
             to: t,
             className: r,
-            onClick: () => {
-              a(t);
+            onClick: (e) => {
+              e.preventDefault(), a(t);
             },
             children: n,
           });
@@ -19786,4 +19786,4 @@
         a();
     })();
 })();
-//# sourceMappingURL=main.f23eed69.js.map
+//# sourceMappingURL=main.c9ee2d27.js.map
